@@ -1,0 +1,48 @@
+# ============================================================
+# CASML — Model Configurations
+# ============================================================
+# LLM and ML model configurations for various components.
+# ============================================================
+
+llm:
+  default:
+    provider: openai
+    model: gpt-4o
+    temperature: 0.0
+    max_tokens: 4096
+    timeout_seconds: 30
+
+  intent_analysis:
+    provider: openai
+    model: gpt-4o-mini
+    temperature: 0.0
+    max_tokens: 1024
+    timeout_seconds: 15
+
+embeddings:
+  default:
+    model: all-MiniLM-L6-v2
+    dimension: 384
+    normalize: true
+
+  intent_matching:
+    model: all-mpnet-base-v2
+    dimension: 768
+    normalize: true
+
+classifiers:
+  injection_detector:
+    type: ensemble
+    models:
+      - name: keyword_heuristic
+        weight: 0.3
+      - name: embedding_similarity
+        weight: 0.4
+      - name: sequence_classifier
+        weight: 0.3
+    threshold: 0.5
+
+  alignment_classifier:
+    type: cosine_similarity
+    threshold: 0.7
+    model: all-MiniLM-L6-v2

@@ -1,0 +1,134 @@
+# ============================================================
+# CASML — Tool Definitions
+# ============================================================
+# Registry of available tools and their configurations.
+# ============================================================
+
+tools:
+  email.read:
+    description: "Read emails from a mailbox"
+    category: email
+    sensitivity: low
+    requires_confirmation: false
+    parameters:
+      mailbox:
+        type: string
+        default: inbox
+      limit:
+        type: integer
+        default: 10
+
+  email.send:
+    description: "Send an email"
+    category: email
+    sensitivity: high
+    requires_confirmation: true
+    parameters:
+      to:
+        type: string
+        required: true
+      subject:
+        type: string
+        required: true
+      body:
+        type: string
+        required: true
+
+  email.forward:
+    description: "Forward an email to a recipient"
+    category: email
+    sensitivity: high
+    requires_confirmation: true
+    parameters:
+      email_id:
+        type: string
+        required: true
+      to:
+        type: string
+        required: true
+
+  document.read:
+    description: "Read a document by ID"
+    category: document
+    sensitivity: low
+    requires_confirmation: false
+    parameters:
+      document_id:
+        type: string
+        required: true
+
+  document.write:
+    description: "Write or update a document"
+    category: document
+    sensitivity: medium
+    requires_confirmation: false
+    parameters:
+      document_id:
+        type: string
+      title:
+        type: string
+      content:
+        type: string
+
+  database.read:
+    description: "Query a database table"
+    category: database
+    sensitivity: low
+    requires_confirmation: false
+    parameters:
+      table:
+        type: string
+        required: true
+      query:
+        type: string
+
+  database.update:
+    description: "Update a database record"
+    category: database
+    sensitivity: high
+    requires_confirmation: true
+    parameters:
+      table:
+        type: string
+        required: true
+      record_id:
+        type: integer
+        required: true
+      updates:
+        type: object
+
+  web.search:
+    description: "Search the web"
+    category: web
+    sensitivity: low
+    requires_confirmation: false
+    parameters:
+      query:
+        type: string
+        required: true
+      limit:
+        type: integer
+        default: 5
+
+  file.read:
+    description: "Read a file from disk"
+    category: filesystem
+    sensitivity: low
+    requires_confirmation: false
+    parameters:
+      path:
+        type: string
+        required: true
+
+  file.write:
+    description: "Write content to a file"
+    category: filesystem
+    sensitivity: medium
+    requires_confirmation: false
+    parameters:
+      path:
+        type: string
+        required: true
+      content:
+        type: string
+        required: true

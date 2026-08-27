@@ -1,0 +1,50 @@
+# ============================================================
+# CASML — Risk Configuration
+# ============================================================
+# Configurable risk thresholds and component weights.
+# Do NOT hard-code these values in Python.
+# ============================================================
+
+risk_levels:
+  low:
+    min_score: 0.0
+    max_score: 0.3
+    color: "#22c55e"
+  medium:
+    min_score: 0.3
+    max_score: 0.6
+    color: "#eab308"
+  high:
+    min_score: 0.6
+    max_score: 0.8
+    color: "#f97316"
+  critical:
+    min_score: 0.8
+    max_score: 1.0
+    color: "#ef4444"
+
+component_weights:
+  provenance: 0.25
+  injection: 0.35
+  alignment: 0.25
+  tool_sensitivity: 0.15
+
+tool_sensitivity:
+  email.send: 0.7
+  email.forward: 0.8
+  email.read: 0.3
+  document.write: 0.5
+  document.read: 0.2
+  database.update: 0.8
+  database.read: 0.3
+  web.search: 0.2
+  file.write: 0.6
+  file.read: 0.2
+
+default_tool_sensitivity: 0.5
+
+thresholds:
+  auto_deny: 0.85
+  require_sandbox: 0.6
+  require_escalation: 0.4
+  auto_allow: 0.2

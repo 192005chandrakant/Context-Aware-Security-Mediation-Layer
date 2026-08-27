@@ -1,0 +1,75 @@
+# ============================================================
+# CASML — Experiment Configuration
+# ============================================================
+# Parameters for security experiments.
+# Do NOT hard-code these in Python.
+# ============================================================
+
+defaults:
+  seed: 42
+  num_trials: 5
+  dataset_dir: ./dataset
+  output_dir: ./experiments
+
+experiments:
+  baseline_detection:
+    name: "Baseline Injection Detection"
+    description: "Evaluate baseline detection accuracy across all attack types"
+    attack_types:
+      - direct_injection
+      - indirect_injection
+      - payload_splitting
+      - context_manipulation
+    metrics:
+      - accuracy
+      - precision
+      - recall
+      - f1_score
+      - false_positive_rate
+      - false_negative_rate
+    num_trials: 10
+
+  adaptive_attacks:
+    name: "Adaptive Attack Evaluation"
+    description: "Test detection against adaptive/evasive attacks"
+    attack_types:
+      - obfuscated_injection
+      - encoding_bypass
+      - semantic_injection
+    metrics:
+      - detection_rate
+      - evasion_rate
+      - confidence_distribution
+
+  ablation_study:
+    name: "Component Ablation Study"
+    description: "Evaluate contribution of each pipeline component"
+    components:
+      - provenance
+      - injection_detector
+      - intent_analyzer
+      - alignment_engine
+      - risk_engine
+    metrics:
+      - accuracy_delta
+      - f1_delta
+      - latency_impact
+
+  robustness:
+    name: "Robustness Evaluation"
+    description: "Test pipeline stability under adversarial conditions"
+    parameters:
+      noise_levels: [0.0, 0.1, 0.2, 0.3, 0.5]
+      perturbation_types:
+        - character_swap
+        - word_insertion
+        - synonym_replacement
+    metrics:
+      - accuracy_under_noise
+      - stability_score
+
+reporting:
+  format: markdown
+  include_figures: true
+  include_tables: true
+  output_dir: ./experiments/reports

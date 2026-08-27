@@ -1,0 +1,58 @@
+# ============================================================
+# CASML — Security Policies
+# ============================================================
+# Configurable security policy rules.
+# ============================================================
+
+default_action: deny
+
+policies:
+  critical_risk_deny:
+    description: "Deny all critical-risk requests immediately"
+    risk_level: critical
+    action: deny
+    priority: 1
+
+  high_risk_sandbox:
+    description: "Execute high-risk requests in sandboxed mode"
+    risk_level: high
+    action: sandbox
+    priority: 2
+
+  medium_risk_escalate:
+    description: "Escalate medium-risk requests for human review"
+    risk_level: medium
+    action: escalate
+    priority: 3
+
+  low_risk_allow:
+    description: "Allow low-risk requests to proceed"
+    risk_level: low
+    action: allow
+    priority: 4
+
+  injection_detected_deny:
+    description: "Deny any request with injection detected"
+    condition: injection_detected
+    action: deny
+    priority: 0
+
+  tainted_provenance_sandbox:
+    description: "Sandbox requests with tainted provenance"
+    condition: tainted_provenance
+    action: sandbox
+    priority: 1
+
+tool_overrides:
+  database.update:
+    max_risk_level: medium
+    requires_confirmation: true
+
+  email.forward:
+    max_risk_level: low
+    requires_confirmation: true
+
+rate_limits:
+  max_requests_per_minute: 60
+  max_denied_per_minute: 10
+  lockout_threshold: 20
